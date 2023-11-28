@@ -8,6 +8,7 @@ def print_last_digit(number):
         return last_digit_pos
     elif number == 0:
         print(0, end="")
+        return 0
     else:
         last_digit_neg = -(last_digit_neg)
         print(last_digit_neg, end="")
