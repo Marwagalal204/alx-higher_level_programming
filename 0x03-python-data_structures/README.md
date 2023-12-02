@@ -1,0 +1,1 @@
+in this directory i'm learning about lists, tuples and data structure using Python
