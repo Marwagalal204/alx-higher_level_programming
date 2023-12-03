@@ -12,10 +12,10 @@ listint_t *prev = NULL, *temp = NULL;
 
 if (*head == NULL || (*head)->next == NULL)
 {
-return (0);
+return (1);
 }
 
-while (fast != NULL && fast->next != NULL && fast->next->next != NULL)
+while (fast != NULL && fast->next != NULL)
 {
 fast = fast->next->next;
 temp = slow->next;
@@ -31,10 +31,10 @@ while (prev != NULL && slow != NULL)
 {
 if (prev->n != slow->n)
 {
-return (1);
+return (0);
 }
 prev = prev->next;
 slow = slow->next;
 }
-return (0);
+return (1);
 }
