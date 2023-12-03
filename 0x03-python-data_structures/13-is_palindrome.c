@@ -1,6 +1,6 @@
 #include"lists.h"
 /**
- * is_palindrome - A c function checks if a linked list is palindrome.
+ * is_palindrome -  A c function checks if a linked list is palindrome.
  * @head: head of the list
  * Return: 1 for is palindrome, 0 for not a palindrone.
 */
@@ -12,10 +12,10 @@ listint_t *prev = NULL, *temp = NULL;
 
 if (*head == NULL || (*head)->next == NULL)
 {
-return (1);
+return (0);
 }
 
-while (fast != NULL && fast->next != NULL)
+while (fast != NULL && fast->next != NULL && fast->next->next != NULL)
 {
 fast = fast->next->next;
 temp = slow->next;
@@ -31,10 +31,10 @@ while (prev != NULL && slow != NULL)
 {
 if (prev->n != slow->n)
 {
-return (0);
+return (1);
 }
 prev = prev->next;
 slow = slow->next;
 }
-return (1);
+return (0);
 }
