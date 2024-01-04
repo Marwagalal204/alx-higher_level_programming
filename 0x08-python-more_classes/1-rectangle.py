@@ -10,10 +10,9 @@ class Rectangle:
 
     @property
     def width(self):
-        """getter function to retrive the value of width"""
+        """getter/setter function to retrive the value of width"""
         return self.__width
 
-    """setter function to set the value of width"""
     @width.setter
     def width(self, value):
         if not isinstance(value, int):
@@ -25,10 +24,9 @@ class Rectangle:
 
     @property
     def height(self):
-        """getter function to retrive the value of height"""
+        """getter/setter function to retrive the value of height"""
         return self.__height
 
-    """setter function to set the value of width"""
     @height.setter
     def height(self, value):
         if not isinstance(value, int):
