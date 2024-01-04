@@ -5,15 +5,14 @@
 class Rectangle:
     """intialize privte attributes width and height"""
     def __init__(self, width=0, height=0):
-        self.__width = width
-        self.__height = height
+        self.width = width
+        self.height = height
 
     @property
     def width(self):
-        """getter function to retrive the value of width"""
+        """getter/setter function to retrive the value of width"""
         return self.__width
 
-    """setter function to set the value of width"""
     @width.setter
     def width(self, value):
         if not isinstance(value, int):
@@ -46,7 +45,7 @@ class Rectangle:
         if self.__width == 0 or self.__height == 0:
             return (0)
         """instance  to find the area of a perimeter"""
-        return ((self.__width + self.__height) * 2)
+        return ((self.__width * 2) + (self.__height * 2))
 
     def __str__(self):
         """method prints the rectangle with the # character"""
