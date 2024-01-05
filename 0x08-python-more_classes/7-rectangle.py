@@ -8,9 +8,9 @@ class Rectangle:
     print_symbol = '#'
 
     def __init__(self, width=0, height=0):
+        type(self).number_of_instances += 1
         self.__width = width
         self.__height = height
-        type(self).number_of_instances += 1
 
     @property
     def width(self):
@@ -50,7 +50,7 @@ class Rectangle:
         if self.__width == 0 or self.__height == 0:
             return (0)
         """instance  to find the area of a perimeter"""
-        return ((self.__width + self.__height) * 2)
+        return ((self.__width * 2) + (self.__height * 2))
 
     def __str__(self):
         """Return the printable representation of the Rectangle.
