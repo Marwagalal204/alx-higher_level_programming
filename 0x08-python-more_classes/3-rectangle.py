@@ -50,8 +50,11 @@ class Rectangle:
         """method prints the rectangle with the # character"""
         result = ""
         if self.__width == 0 or self.__height == 0:
-            return ""
+            return (0)
         else:
             for i in range(self.__height):
-                result += "#" * self.__width + "\n"
+                for j in range(self.__width):
+                    result += '#'
+                if i < self.__height - 1:
+                    result += '\n'
         return result
