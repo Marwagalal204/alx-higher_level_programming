@@ -8,9 +8,9 @@ class Rectangle:
         self.__width = width
         self.__height = height
 
-        if type(width) is int:
+        if not isinstance(width, int):
             raise TypeError("width must be an integer")
-        elif type(height) is int:
+        elif not isinstance(height, int):
             raise TypeError("height must be an integer")
         elif width < 0:
             raise ValueError("width must be >= 0")
