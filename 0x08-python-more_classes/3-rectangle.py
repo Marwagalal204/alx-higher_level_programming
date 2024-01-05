@@ -47,14 +47,16 @@ class Rectangle:
         return ((self.__width * 2) + (self.__height * 2))
 
     def __str__(self):
-        """method prints the rectangle with the # character"""
-        result = ""
+        """Return the printable representation of the Rectangle.
+
+        Represents the rectangle with the # character.
+        """
         if self.__width == 0 or self.__height == 0:
-            return (0)
-        else:
-            for i in range(self.__height):
-                for j in range(self.__width):
-                    result += '#'
-                if i < self.__height - 1:
-                    result += '\n'
-        return result
+            return ("")
+
+        rect = []
+        for i in range(self.__height):
+            [rect.append('#') for j in range(self.__width)]
+            if i != self.__height - 1:
+                rect.append("\n")
+        return ("".join(rect))
