@@ -3,12 +3,7 @@
 
 
 class Rectangle:
-    """Represent a rectangle.
-
-    Attributes:
-        number_of_instances (int): The number of Rectangle instances.
-        print_symbol (any): The symbol used for string representation.
-    """
+    """intialize privte attributes width and height"""
 
     number_of_instances = 0
     print_symbol = "#"
@@ -62,18 +57,21 @@ class Rectangle:
 
     @staticmethod
     def bigger_or_equal(rect_1, rect_2):
-        """returns the rectangle with the greater area"""
+        """Return the Rectangle with the greater area.
+
+        Args:
+            rect_1 (Rectangle): The first Rectangle.
+            rect_2 (Rectangle): The second Rectangle.
+        Raises:
+            TypeError: If either of rect_1 or rect_2 is not a Rectangle.
+        """
         if not isinstance(rect_1, Rectangle):
             raise TypeError("rect_1 must be an instance of Rectangle")
-        elif not isinstance(rect_2, Rectangle):
+        if not isinstance(rect_2, Rectangle):
             raise TypeError("rect_2 must be an instance of Rectangle")
-
-        res1 = rect_1.area
-        res2 = rect_2.area
-        if res2 > res1:
-            return rect_2
-        else:
-            return rect_1
+        if rect_1.area() >= rect_2.area():
+            return (rect_1)
+        return (rect_2)
 
     def __str__(self):
         """Return the printable representation of the Rectangle.
