@@ -1,0 +1,33 @@
+============================
+doctest for 4-print_square.py
+============================
+``print_square()`` prints a square with the character #.
+
+SUCCESSFUL TEST CONDITIONS
+==========================
+
+>>> print_square = __import__('4-print_square').print_square
+>>> print_square(5)
+#####
+#####
+#####
+#####
+#####
+>>> print_square(-2)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/root/alx-higher_level_programming/0x07-python-test_driven_development/4-print_square.py", line 8, in print_square
+    raise ValueError('size must be >= 0')
+ValueError: size must be >= 0
+>>> print_square(2.5)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/root/alx-higher_level_programming/0x07-python-test_driven_development/4-print_square.py", line 6, in print_square
+    raise TypeError('size must be an integer')
+TypeError: size must be an integer
+>>> print_square('abc')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/root/alx-higher_level_programming/0x07-python-test_driven_development/4-print_square.py", line 6, in print_square
+    raise TypeError('size must be an integer')
+TypeError: size must be an integer

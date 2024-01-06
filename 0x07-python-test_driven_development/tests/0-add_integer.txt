@@ -1,0 +1,55 @@
+The ''add_integer'' module
+===========================
+Using ''0-add_integer''
+---------------------------
+''add_integer()'' sum 2 integers
+
+SUCCESSFUL TEST CONDITIONS
+==================================
+>>> say_my_name = __import__('0-add_integer').add_integer
+>>> add_integer(1, 5)
+6
+
+>>> add_integer(5.5, 4.5)
+9
+
+>>> add_integer(-3, 9)
+6
+
+>>> add_integer(3, -9)
+-6
+
+>>> add_integer(6000, 8000)
+14000
+
+>>> add_integer(9)
+107
+
+>>> add_integer(5*10, 9)
+59
+
+>>> add_integer('b', 5)
+Traceback (most recent call last):
+TypeError: a must be an integer
+
+>>> add_integer(9, '5')
+Traceback (most recent call last)
+TypeError: b must be integer
+
+>>> add_integer('a', 'b')
+Traceback (most recent call last):
+TypeError: a must be an integer
+
+>>>add_integer((5, 10), 5)
+Traceback (most recent call last):
+TypeError: a must be an integer
+
+
+>>> add_integer(9, [10, 5, 30])
+Traceback (most recent call last):
+TypeError: b must be an integer
+
+>>> add_integer(None, 9)
+Traceback (most recent call last):
+TypeError: a must be an integer
+

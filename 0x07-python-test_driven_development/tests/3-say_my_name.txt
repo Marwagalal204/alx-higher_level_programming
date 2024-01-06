@@ -1,0 +1,34 @@
+============================
+doctest for 3-say_my_name.py
+============================
+``say_my_name()``  prints My name is <first name> <last name>
+
+SUCCESSFUL TEST CONDITIONS
+==========================
+>>> say_my_name = __import__('3-say_my_name').say_my_name
+>>> say_my_name("John", "Doe")
+My name is John Doe
+>>> say_my_name("Alice")
+My name is Alice 
+>>> say_my_name(30, "Smantha")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/root/alx-higher_level_programming/0x07-python-test_driven_development/3-say_my_name.py", line 8, in say_my_name
+    raise TypeError('first_name must be a string')
+TypeError: first_name must be a string
+>>> say_my_name("doc", 123)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/root/alx-higher_level_programming/0x07-python-test_driven_development/3-say_my_name.py", line 10, in say_my_name
+    raise TypeError('last_name must be a string')
+TypeError: last_name must be a string
+>>> say_my_name("", "")
+My name is  
+>>> say_my_name("  Mary  ", "   Johnson   ")
+My name is   Mary      Johnson   
+>>> say_my_name("jane", "SMITH")
+My name is jane SMITH
+>>> say_my_name("Marwa", "Galal")
+My name is Marwa Galal
+>>> say_my_name("Marwa" * 5, "Galal" * 10)
+My name is MarwaMarwaMarwaMarwaMarwaGalalGalalGalalGalalGalalGalalGalalGalalGalalGalal
