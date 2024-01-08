@@ -1,0 +1,27 @@
+============================
+doctest for 7-base_geometry.py
+============================
+``integer_validator()``  validates value
+
+SUCCESSFUL TEST CONDITIONS
+==========================
+>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+>>> bg = BaseGeometry()
+>>> bg.integer_validator("large_number", 9876543210)
+>>> bg.integer_validator("negative_value", -42)
+Traceback (most recent call last):
+    raise ValueError('{} must be greater than 0'.format(name))
+ValueError: negative_value must be greater than 0
+>>> bg.integer_validator("zero_value", 0)
+Traceback (most recent call last):
+    raise ValueError('{} must be greater than 0'.format(name))
+ValueError: zero_value must be greater than 0
+>>> bg.integer_validator("height", 5.5)
+Traceback (most recent call last):
+    raise TypeError('{} must be an integer'.format(name))
+TypeError: height must be an integer
+>>> bg.integer_validator("flag", True)
+>>> bg.integer_validator("numbers", [1, 2, 3])
+Traceback (most recent call last):
+    raise TypeError('{} must be an integer'.format(name))
+TypeError: numbers must be an integer
