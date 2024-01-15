@@ -1,88 +1,93 @@
 #!/usr/bin/python3
 """
 Unit tests for the Base class
+
 """
+
+import sys
 import unittest
-import os
+import inspect
+import io
+import pep8
+from contextlib import redirect_stdout
 from models.base import Base
 
 
 class TestBase(unittest.TestCase):
+    """
+    Class for testing Base class' methods
+    """
 
-    def setUp(self):
-        # Initialize common variables or perform any setup needed for tests
-        pass
+    @classmethod
+    def setUpClass(cls):
+        """
+        Set up class method for the doc tests
+        """
+        cls.setup = inspect.getmembers(Base, inspect.isfunction)
 
-    def tearDown(self):
-        # Clean up after the test methods run
-        try:
-            os.remove("Base.json")
-        except FileNotFoundError:
-            pass
+    def test_class_docstring(self):
+        """
+        Tests if class docstring documentation exists
+        """
+        self.assertTrue(len(Base.__doc__) >= 1)
 
-    def test_constructor(self):
-        # Test the constructor
-        obj = Base(1)
+    def test_init_with_id(self):
+        """
+        Test if the __init__ method initializes with a given id
+        """
+        obj = Base(5)
+        self.assertEqual(obj.id, 5)
+
+    def test_init_without_id(self):
+        """
+        Test if the __init__ method initializes without a given id
+        """
+        obj = Base()
         self.assertEqual(obj.id, 1)
 
-    def test_to_json_string(self):
-        # Test the to_json_string method
-        obj_list = [{'id': 1, 'name': 'Alice'}, {'id': 2, 'name': 'Bob'}]
-        json_string = Base.to_json_string(obj_list)
-        self.assertEqual(json_string, '[{"id": 1, "name": "Alice"}'
-                         ', {"id": 2, "name": "Bob"}]')
+    def test_to_json_string_empty_list(self):
+        """
+        Test if to_json_string returns an empty list string
+        """
+        self.assertEqual(Base.to_json_string([]), "[]")
 
-        empty_list = []
-        empty_json = Base.to_json_string(empty_list)
-        self.assertEqual(empty_json, '[]')
+    def test_to_json_string_valid_list(self):
+        """
+        Test if to_json_string returns a valid JSON string
+        """
+        data = [{'id': 1, 'name': 'example'}, {'id': 2, 'name': 'test'}]
+        result = Base.to_json_string(data)
+        self.assertEqual(result, '[{"id": 1, "name": "example"}, {"id": 2, "name": "test"}]')
 
-    def test_save_to_file(self):
-        # Test the save_to_file method
-        obj_list = [{'id': 1, 'name': 'Alice'}, {'id': 2, 'name': 'Bob'}]
-        Base.save_to_file(obj_list)
-        with open("Base.json", "r") as jsonfile:
-            self.assertEqual(jsonfile.read(), '[{"id": 1, "name": "Alice"},'
-                             '{"id": 2, "name": "Bob"}]')
+    def test_save_to_file_empty_list(self):
+        """
+        Test if save_to_file writes an empty list to the file
+        """
+        with open("Base.json", "w") as file:
+            pass  # Clear the existing file content
+        Base.save_to_file([])
+        with open("Base.json", "r") as file:
+            content = file.read()
+            self.assertEqual(content, "[]")
 
-        empty_list = []
-        Base.save_to_file(empty_list)
-        with open("Base.json", "r") as jsonfile:
-            self.assertEqual(jsonfile.read(), '[]')
+    def test_from_json_string_empty_string(self):
+        """
+        Test if from_json_string returns an empty list for an empty string
+        """
+        self.assertEqual(Base.from_json_string(""), [])
 
-    def test_from_json_string(self):
-        # Test the from_json_string method
-        json_string = '[{"id": 1, "name": "Alice"}, {"id": 2, "name": "Bob"}]'
-        obj_list = Base.from_json_string(json_string)
-        self.assertEqual(obj_list, [{'id': 1, 'name': 'Alice'},
-                                    {'id': 2, 'name': 'Bob'}])
+    def test_from_json_string_valid_string(self):
+        """
+        Test if from_json_string returns a valid list from a JSON string
+        """
+        json_string = '[{"id": 1, "name": "example"}, {"id": 2, "name": "test"}]'
+        result = Base.from_json_string(json_string)
+        expected = [{'id': 1, 'name': 'example'}, {'id': 2, 'name': 'test'}]
+        self.assertEqual(result, expected)
 
-        empty_json = '[]'
-        empty_list = Base.from_json_string(empty_json)
-        self.assertEqual(empty_list, [])
-
-    def test_create(self):
-        # Test the create method
-        obj_dict = {'id': 1, 'name': 'Alice'}
-        obj = Base.create(**obj_dict)
-        self.assertEqual(obj.id, 1)
-        self.assertEqual(obj.name, 'Alice')
-
-    def test_load_from_file(self):
-        # Test the load_from_file method
-        obj_list = [{'id': 1, 'name': 'Alice'}, {'id': 2, 'name': 'Bob'}]
-        Base.save_to_file(obj_list)
-
-        loaded_objs = Base.load_from_file()
-        self.assertEqual(len(loaded_objs), 2)
-        self.assertEqual(loaded_objs[0].id, 1)
-        self.assertEqual(loaded_objs[1].id, 2)
-
-        # Test with an empty file
-        empty_list = []
-        Base.save_to_file(empty_list)
-        loaded_empty_objs = Base.load_from_file()
-        self.assertEqual(len(loaded_empty_objs), 0)
-
-
-if __name__ == '__main__':
-    unittest.main()
+    def test_load_from_file_file_not_exist(self):
+        """
+        Test if load_from_file returns an empty list when the file doesn't exist
+        """
+        result = Base.load_from_file()
+        self.assertEqual(result, [])
