@@ -59,7 +59,6 @@ class Square(Rectangle):
                 elif k == "y":
                     self.y = v
 
-
     def to_dictionary(self):
         """to dictionary method"""
         dict = {

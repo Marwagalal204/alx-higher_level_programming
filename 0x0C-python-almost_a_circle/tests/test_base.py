@@ -8,7 +8,6 @@ import sys
 import unittest
 import inspect
 import io
-import pep8
 from contextlib import redirect_stdout
 from models.base import Base
 from models.rectangle import Rectangle
@@ -59,7 +58,8 @@ class TestBase(unittest.TestCase):
         """
         data = [{'id': 1, 'name': 'example'}, {'id': 2, 'name': 'test'}]
         result = Base.to_json_string(data)
-        self.assertEqual(result, '[{"id": 1, "name": "example"}, {"id": 2, "name": "test"}]')
+        self.assertEqual(result, '[{"id": 1, "name": "example"},'
+                         '{"id": 2, "name": "test"}]')
 
     def test_save_to_file_empty_list(self):
         """
@@ -82,14 +82,15 @@ class TestBase(unittest.TestCase):
         """
         Test if from_json_string returns a valid list from a JSON string
         """
-        json_string = '[{"id": 1, "name": "example"}, {"id": 2, "name": "test"}]'
+        json_string = '[{"id": 1, "name": "example"},'
+        '{"id": 2, "name": "test"}]'
         result = Base.from_json_string(json_string)
         expected = [{'id': 1, 'name': 'example'}, {'id': 2, 'name': 'test'}]
         self.assertEqual(result, expected)
 
     def test_load_from_file_file_not_exist(self):
         """
-        Test if load_from_file returns an empty list when the file doesn't exist
+        Test if load_from_file returns an empty list
         """
         result = Base.load_from_file()
         self.assertEqual(result, [])
