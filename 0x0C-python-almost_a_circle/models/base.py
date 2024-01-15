@@ -31,18 +31,11 @@ class Base:
     @classmethod
     def save_to_file(cls, list_objs):
         """class metod saves the converted data"""
-        filename = cls.__name__ + ".csv"
-        with open(filename, "w", newline="") as csvfile:
-            if list_objs is None or list_objs == []:
-                csvfile.write("[]")
-            else:
-                if cls.__name__ == "Rectangle":
-                    fieldnames = ["id", "width", "height", "x", "y"]
-                else:
-                    fieldnames = ["id", "size", "x", "y"]
-                writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-                for obj in list_objs:
-                    writer.writerow(obj.to_dictionary())
+        filename = cls.__name__ + ".json"
+        json_string = cls.to_json_string(list_objs) if list_objs else "[]"
+
+        with open(filename, 'w') as jsonfile:
+            jsonfile.write(json_string)
 
     @staticmethod
     def from_json_string(json_string):
@@ -66,16 +59,10 @@ class Base:
     @classmethod
     def load_from_file(cls):
         """class method load_from_file"""
-        filename = cls.__name__ + ".csv"
+        filename = str(cls.__name__) + ".json"
         try:
-            with open(filename, "r", newline="") as csvfile:
-                if cls.__name__ == "Rectangle":
-                    fieldnames = ["id", "width", "height", "x", "y"]
-                else:
-                    fieldnames = ["id", "size", "x", "y"]
-                list_dicts = csv.DictReader(csvfile, fieldnames=fieldnames)
-                list_dicts = [dict([k, int(v)] for k, v in d.items())
-                              for d in list_dicts]
+            with open(filename, "r") as jsonfile:
+                list_dicts = Base.from_json_string(jsonfile.read())
                 return [cls.create(**d) for d in list_dicts]
         except IOError:
             return []
