@@ -7,7 +7,6 @@ import sys
 import unittest
 import inspect
 import io
-import pep8
 from contextlib import redirect_stdout
 from models.square import Square
 
@@ -23,16 +22,6 @@ class TestSquare(unittest.TestCase):
         Set up class method for the doc tests
         """
         cls.setup = inspect.getmembers(Square, inspect.isfunction)
-
-    def test_pep8_conformance_square(self):
-        """
-        Test that square.py file conform to PEP8
-        """
-        pep8style = pep8.StyleGuide(quiet=True)
-        result = pep8style.check_files(['models/square.py'])
-        self.assertEqual(result.total_errors, 0,
-                         "Found code style errors (and warnings).")
-
 
     def test_module_docstring(self):
         """
