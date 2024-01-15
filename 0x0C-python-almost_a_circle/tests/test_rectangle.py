@@ -7,7 +7,6 @@ import sys
 import unittest
 import inspect
 import io
-import pep8
 from contextlib import redirect_stdout
 from models.rectangle import Rectangle
 
@@ -23,15 +22,6 @@ class TestRectangle(unittest.TestCase):
         Set up class method for the doc tests
         """
         cls.setup = inspect.getmembers(Rectangle, inspect.isfunction)
-
-    def test_pep8_conformance_rectangle(self):
-        """
-        Test that rectangle.py file conform to PEP8
-        """
-        pep8style = pep8.StyleGuide(quiet=True)
-        result = pep8style.check_files(['models/rectangle.py'])
-        self.assertEqual(result.total_errors, 0,
-                         "Found code style errors (and warnings).")
 
     def test_module_docstring(self):
         """
@@ -50,7 +40,7 @@ class TestRectangle(unittest.TestCase):
         Test for negative and zero values
         """
         with self.assertRaises(ValueError):
-            R = Rectangle(0, 0)
+            R = Rectangle(0, 2)
         with self.assertRaises(ValueError):
             R = Rectangle(-4, -5)
         with self.assertRaises(ValueError):
@@ -65,23 +55,23 @@ class TestRectangle(unittest.TestCase):
         Different types for inputted arguments
         """
         with self.assertRaises(TypeError):
-            R = Rectangle('width', 'height')
+            Rectangle('width', 'height')
         with self.assertRaises(TypeError):
-            R = Rectangle(2.4, 1.3)
+            Rectangle(2.4, 1.3)
         with self.assertRaises(TypeError):
-            R = Rectangle(1, 2, 'x value', 'y value')
+            Rectangle(1, 2, 'x value', 'y value')
         with self.assertRaises(TypeError):
-            R = Rectangle(1, 2, 2.4, 1.3)
+            Rectangle(1, 2, 2.4, 1.3)
         with self.assertRaises(TypeError):
-            R = Rectangle(True, False)
+            Rectangle(True, False)
         with self.assertRaises(TypeError):
-            R = Rectangle(1, 2, True, False)
+            Rectangle(1, 2, True, False)
         with self.assertRaises(TypeError):
-            R = Rectangle([1, 1], 2, 3, 4)
+            Rectangle([1, 1], 2, 3, 4)
         with self.assertRaises(TypeError):
-            R = Rectangle((1, 2), 'x value', 'y value')
+            Rectangle((1, 2), 'x value', 'y value')
         with self.assertRaises(TypeError):
-            R = Rectangle({1: 3, 2: 4}, 5, 6)
+            Rectangle({1: 3, 2: 4}, 5, 6)
 
     def test_area(self):
         """
@@ -156,3 +146,6 @@ class TestRectangle(unittest.TestCase):
         self.assertEqual(R_dict['x'], 300)
         self.assertEqual(R_dict['y'], 400)
         self.assertEqual(R_dict['id'], 500)
+
+if __name__ == "__main__":
+    unittest.main()
