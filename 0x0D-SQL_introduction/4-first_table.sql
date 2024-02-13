@@ -1,6 +1,6 @@
 -- CREATE TABLE CALLED first_table
 
 CREATE TABLE IF NOT EXISTS first_table (
-    id int
+    id INT
     name VARCHAR(256)
 );
