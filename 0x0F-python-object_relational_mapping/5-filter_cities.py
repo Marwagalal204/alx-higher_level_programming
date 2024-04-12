@@ -12,7 +12,7 @@ if __name__ == "__main__":
     cur = db.cursor()
     state_name = sys.argv[4]
     query = """SELECT cities.name from cities INNER JOIN states ON
-    cities.states.id = states.id WHERE states.name LIKE %s"""
+    cities.state_id = states.id WHERE states.name LIKE %s"""
 
     cur.execute(query, (state_name,))
     rows = cur.fetchall()
