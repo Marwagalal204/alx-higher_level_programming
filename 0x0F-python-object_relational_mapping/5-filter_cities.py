@@ -11,14 +11,14 @@ if __name__ == "__main__":
 
     cur = db.cursor
     method = sys.argv[4]
-    query = """SELECT name from cities INNER JOIN states ON
-    cities.states.id = states.id WHERE states.id LIKE %s"""(method, )
+    query = """SELECT cities.name from cities INNER JOIN states ON
+    cities.states.id = states.id WHERE states.name LIKE %s"""(method, )
 
     cur.execute(query)
     rows = cur.fetchall()
 
-    for row in rows:
-        print(row)
+    tmp = list(row[0] for row in rows)
+    print(*tmp, sep=", ")
 
     cur.close()
     db.close()
