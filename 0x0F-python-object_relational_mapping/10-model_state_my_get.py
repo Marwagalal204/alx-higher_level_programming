@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" prints the first State object from the database hbtn_0e_6_usa"""
+""" prints the State passed as argument from the database"""
 import sys
 from model_state import Base, State
 from sqlalchemy import (create_engine)
@@ -12,10 +12,8 @@ if __name__ == "__main__":
     Base.metadata.create_all(engine)
     Session = sessionmaker(bind=engine)
     session = Session()
-
-    instance = session.query(State).order_by(State.id).first()
-
-    if instance is None:
-        print("Nothing")
-    else:
-        print(instance.id, instance.name, sep=": ")
+    instance = session.query(State).filter(State.name == (sys.argv[4],))
+    try:
+        print(instance[0].id)
+    except IndexError:
+        print("Not found")
